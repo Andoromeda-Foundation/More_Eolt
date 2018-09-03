@@ -596,8 +596,9 @@ async function requestId() {
         //移动端
          client.getAccount().then((data) => {
              alert("eee")
-             app.account =data;
-             alert(JSON.stringify(app.account));
+             app.account =data.account_name;
+             app.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0]
+             alert(app.account + app.user_eos_balance);
             });
     }
 };
