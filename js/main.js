@@ -594,8 +594,10 @@ async function requestId() {
         }
     } else {
         //移动端
-        app.account = client.getAccount();
-        alert(JSON.stringify(app.account));
+         client.getAccount().then(data => {
+             alert(JSON.stringify(app.account));
+             app.account =data;
+            });
     }
 };
 
