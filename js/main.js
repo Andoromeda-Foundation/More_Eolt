@@ -562,6 +562,13 @@ app = new Vue({
         },
         getBalanceTimer:function(){
             setTimeout(this.getEosBalance(),5000);
+        },
+        getMoreAccountAndBalance:function(){
+            client.getAccount().then((data) => {
+                alert("eee222")
+            app.account =data.account_name;
+            app.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
+        });
         }
     },
     computed: {}
@@ -594,12 +601,7 @@ async function requestId() {
         }
     } else {
         //移动端
-         client.getAccount().then((data) => {
-             alert("eee")
-             app.account =data.account_name;
-             app.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0]
-             alert(app.account + app.user_eos_balance);
-            });
+        app.getMoreAccountAndBalance();
     }
 };
 
