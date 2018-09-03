@@ -21,7 +21,7 @@
 http://localhost:5000/
 
 ### 在线浏览
-https://andoromeda-foundation.github.io/TP-Eolt-Test/
+https://andoromeda-foundation.github.io/More_Eolt/.
 
 ### EOS node setup
 
