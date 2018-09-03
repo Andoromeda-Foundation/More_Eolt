@@ -32,7 +32,9 @@ app = new Vue({
         tpAccount: null,
         current_price:0
     },
-    created: function () {},
+    created: function(){
+        this.getMoreAccountAndBalance();
+    },
     watch: {},
     methods: {
         resolveUrl: function (to) {
