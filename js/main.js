@@ -600,7 +600,7 @@ app = new Vue({
         });
 
             client.getCurrencyBalance('happyeosslot', 'HPY').then((data) => {
-                alert("333")
+                alert("333 HPY")
                 alert(JSON.stringify(data));
                 var hpys = data.split(' ');
                this.user_hpy_balance = hpys[0]
