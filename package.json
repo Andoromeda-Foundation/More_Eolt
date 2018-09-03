@@ -1,0 +1,19 @@
+{
+  "name": "eolt-tp-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -p 3000 --register=http://localhost:3000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "eosjs": "^16.0.2",
+    "mint-ui": "^2.2.13"
+  }
+}

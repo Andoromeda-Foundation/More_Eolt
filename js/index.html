@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EOS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <script src="js/lib/vue.js"></script>
+    <script src="js/lib/eos.js"></script>
+</head>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/cube-top.css">
+<link rel="stylesheet" type="text/css" href="css/cube.css">
+<link rel="stylesheet/less" type="text/css" href="css/main.less">
+<body>
+
+        <div id="app">
+            <div  class="header-content">
+                <ul>
+                    <li onclick="implementFun()"><a>游戏规则</a></li>
+                    <li><a href="https://github.com/Andoromeda-Foundation/Project-Eolt">项目代码</a></li>
+                    <li><a href="https://t.me/CryptoHero_Official">社区</a></li>
+                    <li><a href="https://discordapp.com/invite/nMXUYGQ">讨论</a> </li>
+                </ul>
+            </div>
+            <div class="main" >
+               <!--     <div class="implement"  onclick="implementFun()" >游戏规则说明</div>-->
+                    <div class="adorn-top"></div>
+                    <div class="adorn-bottom"></div>
+                    <div class="box1-left">
+                        <div class="img-box img-box25" v-bind:class="{selected: index == 25}"></div>
+                        <div class="img-box img-box26" v-bind:class="{selected: index == 26}"></div>
+                        <div class="img-box img-box27" v-bind:class="{selected: index == 27}"></div>
+                        <div class="img-box img-box28" v-bind:class="{selected: index == 28}"></div>
+                        <div class="img-box img-box1" v-bind:class="{selected: index == 1}"></div>
+                        <div class="img-box img-box2" v-bind:class="{selected: index == 2}"></div>
+                        <div class="img-box img-box3" v-bind:class="{selected: index == 3}"></div>
+                        <div class="img-box img-box4" v-bind:class="{selected: index == 4}"></div>
+                        <div class="img-box img-box5" v-bind:class="{selected: index == 5}"></div>
+                        <div class="img-box img-box6" v-bind:class="{selected: index == 6}"></div>
+                    </div>
+                    <div class="box2-center">
+                        <div class="box2-contain">
+                            <div class="center-box-top">
+
+                                <div class="img-box img-box24" v-bind:class="{selected: index == 24}"></div>
+                                <div class="img-box img-box23" v-bind:class="{selected: index == 23}"></div>
+                                <div class="img-box img-box22" v-bind:class="{selected: index == 22}"></div>
+                                <div class="img-box img-box21" v-bind:class="{selected: index == 21}"></div>
+
+
+                            </div>
+                            <div class="center-box-center">
+                                <div class="center-box-center-left">
+                                    <div class="bet" onclick="app.change_bet()">Bet</div>
+                                    <div class="bet-num" onclick="app.change_bet()">{{ bet_input||0 }}
+                                       <!-- <span class="tooltiptext">点击修改Bet数额</span>-->
+                                    </div>
+                                    <div>
+                                        <span class="tips">在此修改Bet(EOS)</span>
+                                        <input class="bet-input" type="number" placeholder="Bet(EOS)" v-model="bet_input">
+                                    </div>
+
+                                    <div class="bet">EOP</div>
+                                    <div class="bet-num">{{ (eop!=""?eop.toFixed(4):eop)||0 }}
+                                    </div>
+                                    <div class="bet">HPY</div>
+                                    <div class="bet-num">{{ (user_hpy_balance!=""?user_hpy_balance:user_hpy_balance) || 0 }}</div>
+                                    <div class="bet">Balance</div>
+                                    <div class="bet-num">{{ user_eos_balance }}</div>
+                                    <div> <span class="tips">在此修改股份，买(EOS)/买（HPY）股份</span>
+                                        <input class="bet-sell" type="number" placeholder="买（EOS）/卖（HPY）股权" v-model="eosValue">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center-box-bottom">
+                                <div class="img-box img-box7" v-bind:class="{selected: index == 7}"></div>
+                                <div class="img-box img-box8" v-bind:class="{selected: index == 8}"></div>
+                                <div class="img-box img-box9" v-bind:class="{selected: index == 9}"></div>
+                                <div class="img-box img-box10" v-bind:class="{selected: index == 10}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box3-right">
+                        <div class="img-box img-box20" v-bind:class="{selected: index == 20}"></div>
+                        <div class="img-box img-box19" v-bind:class="{selected: index == 19}"></div>
+                        <div class="img-box img-box18" v-bind:class="{selected: index == 18}"></div>
+                        <div class="img-box img-box17" v-bind:class="{selected: index == 17}"></div>
+                        <div class="img-box img-box16" v-bind:class="{selected: index == 16}"></div>
+                        <div class="img-box img-box15" v-bind:class="{selected: index == 15}"></div>
+                        <div class="img-box img-box14" v-bind:class="{selected: index == 14}"></div>
+                        <div class="img-box img-box13" v-bind:class="{selected: index == 13}"></div>
+                        <div class="img-box img-box12" v-bind:class="{selected: index == 12}"></div>
+                        <div class="img-box img-box11" v-bind:class="{selected: index == 11}"></div>
+                    </div>
+
+                <div class="main-bg">
+                    <div class="horizontal-box"></div>
+                    <div class="vertical-box"></div>
+                </div>
+                <div class="bottom-bg">
+                    <div class="cube-top-box">
+                        <div class="top-front"></div>
+                        <div class="top-bottom"></div>
+                        <div class="top-back"></div>
+                        <div class="top-top"></div>
+                        <div class="top-left"></div>
+                        <div class="top-right"></div>
+                    </div>
+                    <div class="cube-box">
+                        <div class="front"></div>
+                        <div class="bottom"></div>
+                        <div class="back"></div>
+                        <div class="top"></div>
+                        <div class="left"></div>
+                        <div class="right"></div>
+                    </div>
+
+                </div>
+                    <div class="btn-positon">
+                        <button id="spinId" class="spin" v-on:click="start_roll">摇起来！</button>
+                         <button class="input-money" v-on:click="make_deposit">买股份</button>
+                        <button class="get-money" v-on:click="make_withdraw">卖股份</button>
+                        <!-- <button class="gen" onclick="app.stop_at(15)">Gen</button> -->
+                        <!--   <button class="leave"> Leave</button>-->
+                        <div class="music-play" id="musicId">
+                            <img id="imgId" src="imges/pause.jpg">
+                        </div>
+                    </div>
+            </div>
+            <div id="divId">
+                    <img src="imges/des.png"  class="descripse">
+                </div>
+            <audio id="audioId" loop="loop" preload="auto" autoplay="autoplay">
+                <source src="music/tiger.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_bigreward" preload="auto">
+                <source src="music/se/bigreward.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_buy" preload="auto">
+                <source src="music/se/buy.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_click" preload="auto">
+                <source src="music/se/click.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_rolling" preload="auto">
+                <source src="music/se/rolling.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_smallreward" preload="auto">
+                <source src="music/se/smallreward.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_startrolling" preload="auto">
+                <source src="music/se/startrolling.mp3" type="audio/mp3">
+            </audio>
+            <audio id="se_withdraw" preload="auto">
+                <source src="music/se/withdraw.mp3" type="audio/mp3">
+            </audio>
+        </div>
+   <!-- </div>-->
+    <script src="js/less.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/playmusic.js"></script>
+    <script src="js/lib/dasdaq.queryview.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/lib/tp.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <script>
+        setTimeout(function () {
+            requestId(); // change to on load.
+        }, 1000);
+    </script>
+    <script>
+        $("#musicId").on("click", function () {
+            swap_music("imgId");
+        })
+       function implementFun() {
+           document.getElementById("divId").scrollIntoView(false);
+       }
+    </script>
+</body>
+
+</html>
