@@ -567,8 +567,10 @@ app = new Vue({
     computed: {}
 });
 
+const dappName = "Eolt";
+const client = MOREWALLET.getClient(dappName);
 async function requestId() {
-    if (app.eos != null) return;
+    // if (app.eos != null) return;
     // if (app.tpAccount != null) return;
     if (isPc()) {
         //PC端
@@ -592,15 +594,8 @@ async function requestId() {
         }
     } else {
         //移动端
-        app.tpConnected = tp.isConnected();
-        if (app.tpConnected) {
-            tp.getWalletList("eos").then(function (data) {
-                app.tpAccount = data.wallets.eos[0];
-                app.getEosBalance()
-            });
-        } else {
-            alert("请下载TokenPocket") //待完善
-        }
+        app.account = client.getAccount();
+        alert(app.account)
     }
 };
 
