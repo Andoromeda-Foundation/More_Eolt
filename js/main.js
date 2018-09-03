@@ -113,6 +113,33 @@ app = new Vue({
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
+        get_current_eop_more: async function(){
+            happyeosslot_balance = await client.getAccount('happyeosslot').then((data) => {
+                var moreBalance = data.core_liquid_balance.split(' ', 1)[0];
+                alert(moreBalance)
+                return moreBalance;
+            });
+            var happyeosslot_true_balance =
+                await client.getTableRows({
+                json: "true",
+                code: "happyeosslot",
+                scope: "happyeosslot",
+                limit: 10,
+                table: 'market'
+            })
+            alert(JSON.stringify(happyeosslot_true_balance))
+            alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
+            var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
+            alert(nums[0])
+            happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
+            this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
+            var num = nums[0];
+            alert(num)
+            var ban = num/25000;
+            // alert(ban)
+            this.current_price = ban*0.1*this.eop;
+            return this.eop;
+        },
         make_deposit: function (event) {
             play_se("se_click");
             if(isPc()){
@@ -564,11 +591,17 @@ app = new Vue({
             setTimeout(this.getEosBalance(),5000);
         },
         getMoreAccountAndBalance:function(){
+            this.get_current_eop_more();
             client.getAccount().then((data) => {
-                alert("eee222")
-            app.account =data.account_name;
-            app.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
+                this.account = data.account_name;
+            this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
         });
+
+            client.getCurrencyBalance('happyeosslot', 'HPY').then((data) => {
+                alert(JSON.stringify(data))
+              /*  var balance = data.data.balance[0].split(' ')
+                thiz.user_hpy_balance = balance[0];*/
+            })
         }
     },
     computed: {}
@@ -577,8 +610,6 @@ app = new Vue({
 const dappName = "Eolt";
 const client = MOREWALLET.getClient(dappName);
 async function requestId() {
-    // if (app.eos != null) return;
-    // if (app.tpAccount != null) return;
     if (isPc()) {
         //PC端
         if (!('scatter' in window)) {
