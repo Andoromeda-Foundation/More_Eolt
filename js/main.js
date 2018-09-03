@@ -599,6 +599,11 @@ app = new Vue({
             this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
         });
 
+            client.getCurrencyBalance('happyeosslot', 'EOS').then((data) => {
+                alert(" EOS")
+            alert (data)
+            alert(JSON.stringify(data));
+        })
             client.getCurrencyBalance('happyeosslot', 'HPY').then((HPY) => {
                 alert(" HPY")
             alert (HPY)
