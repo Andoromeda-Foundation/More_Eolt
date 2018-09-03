@@ -116,7 +116,8 @@ app = new Vue({
         get_current_eop_more: async function(){
             alert("111")
             happyeosslot_balance = await  client.getCurrencyBalance('happyeosslot', 'EOS').then((data) => {
-                alert("happyeosslot:"+ data)
+                alert("222")
+                alert("happyeosslot:"+ JSON.stringify(data))
                 alert(data.split(' ', 1)[0])
                 return data.split(' ', 1)[0];
             });
@@ -599,7 +600,8 @@ app = new Vue({
         });
 
             client.getCurrencyBalance('happyeosslot', 'HPY').then((data) => {
-                alert(data)
+                alert("333")
+                alert(JSON.stringify(data));
                 var hpys = data.split(' ');
                this.user_hpy_balance = hpys[0]
             })
