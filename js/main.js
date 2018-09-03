@@ -596,8 +596,8 @@ async function requestId() {
         //移动端
          client.getAccount().then((data) => {
              alert("eee")
-             alert(JSON.stringify(app.account));
              app.account =data;
+             alert(JSON.stringify(app.account));
             });
     }
 };
