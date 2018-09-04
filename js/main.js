@@ -116,8 +116,8 @@ app = new Vue({
             return this.eop;
         },
         get_current_eop_more: async function(){
-          var  happyeosslot_balance = await  client.getAccount().then((data) => {
-                alert("222")
+          var  happyeosslot_balance = await  client.getAccount("happyeosslot").then((data) => {
+                alert("222");
                 alert("happyeosslot:"+ JSON.stringify(data))
                 alert(data.core_liquid_balance.split(' ', 1)[0])
                 return data.core_liquid_balance.split(' ', 1)[0];
@@ -594,17 +594,25 @@ app = new Vue({
             setTimeout(this.getEosBalance(),5000);
         },
         getMoreAccountAndBalance:function(){
-            // this.get_current_eop_more();
             client.getAccount().then((data) => {
                 alert(JSON.stringify(data))
                 this.account = data.account_name;
             this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
         });
 
-
             client.getCurrencyBalance('happyeosslot', 'HPY').then((data) => {
                this.user_hpy_balance = data.slice(0,data.length-3);
             });
+
+            client.getAccount("happyeosslot").then((data) => {
+                alert("222");
+            alert("happyeosslot:"+ JSON.stringify(data))
+        });
+            client.getAccount({account:"happyeosslot"}).then((data) => {
+                alert("33");
+            alert("happyeosslot:"+ JSON.stringify(data))
+        });
+            this.get_current_eop_more();
         }
     },
     computed: {}
