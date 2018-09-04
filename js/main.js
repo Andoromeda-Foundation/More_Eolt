@@ -116,7 +116,7 @@ app = new Vue({
             return this.eop;
         },
         get_current_eop_more: async function(){
-            happyeosslot_balance = await  client.getAccount({account:'happyeosslot'}).then((data) => {
+          var  happyeosslot_balance = await  client.getAccount('happyeosslot').then((data) => {
                 alert("222")
                 alert("happyeosslot:"+ JSON.stringify(data))
                 alert(data.core_liquid_balance.split(' ', 1)[0])
