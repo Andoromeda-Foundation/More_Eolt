@@ -594,7 +594,7 @@ app = new Vue({
             setTimeout(this.getEosBalance(),5000);
         },
         getMoreAccountAndBalance:function(){
-            this.get_current_eop_more();
+            // this.get_current_eop_more();
             client.getAccount().then((data) => {
                 alert(JSON.stringify(data))
                 this.account = data.account_name;
