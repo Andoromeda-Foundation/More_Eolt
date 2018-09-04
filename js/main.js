@@ -596,6 +596,7 @@ app = new Vue({
         getMoreAccountAndBalance:function(){
             this.get_current_eop_more();
             client.getAccount().then((data) => {
+                alert(JSON.stringify(data))
                 this.account = data.account_name;
             this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
         });
@@ -605,7 +606,7 @@ app = new Vue({
                 alert("hh HPY")
                 alert(JSON.stringify(data));
                 var hpys = data.split(' ');
-               this.user_hpy_balance = data
+               this.user_hpy_balance = data[0]
             });
         }
     },
