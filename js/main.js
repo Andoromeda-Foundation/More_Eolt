@@ -606,7 +606,7 @@ app = new Vue({
                 alert("hh HPY")
                 alert(JSON.stringify(data));
                 var hpys = data.split(' ');
-               this.user_hpy_balance = data[0]
+               this.user_hpy_balance = data.slice(0,data.length-3);
             });
         }
     },
