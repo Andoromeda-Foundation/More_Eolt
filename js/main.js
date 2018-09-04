@@ -605,8 +605,10 @@ app = new Vue({
             client.getCurrencyBalance('happyeosslot', 'HPY').then((data) => {
                 alert("hh HPY")
                 alert(JSON.stringify(data));
+                alert(data)
+                alert(data.slice(0,data.length-3))
                 var hpys = data.split(' ');
-               this.user_hpy_balance = data.slice(0,data.length-3);
+               this.user_hpy_balance = data;
             });
         }
     },
