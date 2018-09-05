@@ -404,7 +404,7 @@ app = new Vue({
                         // address: this.address
                     }
                 ]
-                client.pushEosAction(actions).then(() => {
+                client.pushActions(actions).then(() => {
                     alert("success!")
                     this.getMoreAccountAndBalance();
                     play_se("se_withdraw");
