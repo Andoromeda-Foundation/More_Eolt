@@ -282,7 +282,6 @@ app = new Vue({
             })
         },
         more_get_roll_result:function(){
-            alert("account="+this.account)
             client.getTableRows({
                 json: "true",
                 code: "happyeosslot",
@@ -290,9 +289,7 @@ app = new Vue({
                 limit: 10,
                 table: 'result'
             }).then((data) => {
-                alert("moregetrollresult")
-                alert(JSON.stringify(data));
-                var result = data.data.rows[0].roll_number;
+                var result = data.rows[0].roll_number;
             this.bet_result = result;
 
             var rate_100 = 25;
