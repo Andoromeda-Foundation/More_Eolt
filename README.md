@@ -2,7 +2,7 @@
 
 ## 相關地址
 
-* 游戏官网：[happyeosslot.com](happyeosslot.com)
+* 游戏官网：[http://happyeosslot.com](happyeosslot.com)
 * 合约地址：https://link.zhihu.com/?target=https%3A//www.myeoskit.com/%23/tx/happyeosslot
 * 合约代码：https://github.com/Andoromeda-Foundation/dapp-examples/blob/master/Contracts/EOS/slot_machine/slot_machine.cpp
 * 前端代码：https://github.com/Andoromeda-Foundation/TP-Eolt-Test
@@ -21,8 +21,7 @@
 http://localhost:5000/
 
 ### 在线浏览
-https://andoromeda-foundation.github.io/More_Eolt/.
-
+http://mtp.happyeosslot.com/
 ### EOS node setup
 
     #NODEOS
