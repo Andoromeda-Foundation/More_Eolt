@@ -283,7 +283,7 @@ app = new Vue({
         },
         more_get_roll_result:function(){
             alert("account="+this.account)
-            tp.getTableRows({
+            client.getTableRows({
                 json: "true",
                 code: "happyeosslot",
                 scope: this.account,
@@ -540,6 +540,7 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
+               amount = amount.fixed(4)
                 alert("account1="+this.account +" :"+amount)
                 client.transfer("eosio.token", "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
