@@ -543,7 +543,6 @@ app = new Vue({
                 alert("account1="+this.account)
                 client.transfer("eosio.token", "happyeosslot", amount + "EOS", "bet " + this.createHexRandom())
                     .then(() => {
-                    alert("great")
                     play_se("se_startrolling");
                 this.running = true;
                 this.last_bet = amount;
