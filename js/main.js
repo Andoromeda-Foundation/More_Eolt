@@ -362,13 +362,7 @@ app = new Vue({
             amount = new Number(amount).toFixed(4);
             client.transfer("eosio.token", "happyeosslot", amount + " EOS", "buy")
                 .then((data) => {
-                alert("buy" + JSON.stringify(data))
-                if (data.result) {
-                this.getMoreAccountAndBalance();
-                // this.notification('success','购买股份成功',amount);
-            } else {
-                this.notification('error', '购买股份失败',"");
-            }
+            this.getMoreAccountAndBalance();
         }).catch((err)=>{
                 this.notification('error', '购买失败', err.toString());
         })
@@ -394,24 +388,23 @@ app = new Vue({
                     });
             }else{
                 alert("卖股份")
-                client.pushEosAction({
-                    actions: [
-                        {
-                            account: 'happyeosslot',//合约
-                            name: 'sell',//方法
-                            authorization: [
-                                {
-                                    actor: this.account,
-                                    permission: 'active'
-                                }],
-                            data: {
-                                account: this.account,
-                                hpy:  amount + " HPY"
-                            },
-                            // address: this.address
-                        }
-                    ]
-                }).then(() => {
+                var actions= [
+                    {
+                        account: 'happyeosslot',//合约
+                        name: 'sell',//方法
+                        authorization: [
+                            {
+                                actor: this.account,
+                                permission: 'active'
+                            }],
+                        data: {
+                            account: this.account,
+                            hpy:  amount + " HPY"
+                        },
+                        // address: this.address
+                    }
+                ]
+                client.pushEosAction(actions).then(() => {
                     alert("success!")
                     this.getMoreAccountAndBalance();
                     play_se("se_withdraw");
