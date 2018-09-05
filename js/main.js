@@ -593,8 +593,8 @@ app = new Vue({
         getBalanceTimer:function(){
             setTimeout(this.getEosBalance(),5000);
         },
-        getMoreAccountAndBalance:function(){
-            client.getAccount().then((data) => {
+        getMoreAccountAndBalance: async function(){
+           await client.getAccount().then((data) => {
                 alert(JSON.stringify(data))
                 this.account = data.account_name;
             this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
