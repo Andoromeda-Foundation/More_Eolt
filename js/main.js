@@ -541,8 +541,9 @@ app = new Vue({
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
                 alert("account1="+this.account)
-                client.transfer("eosio.token", "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+                client.transfer("eosio.token", "happyeosslot", amount + "EOS", "bet " + this.createHexRandom())
                     .then(() => {
+                    alert("great")
                     play_se("se_startrolling");
                 this.running = true;
                 this.last_bet = amount;
