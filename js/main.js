@@ -604,7 +604,7 @@ app = new Vue({
                this.user_hpy_balance = data.slice(0,data.length-3);
             });
 
-            // this.get_current_eop_more();
+            this.get_current_eop_more();
         }
     },
     computed: {}
