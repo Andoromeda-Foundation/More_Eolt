@@ -550,7 +550,7 @@ app = new Vue({
                 this.roll_loop();
                 this.more_get_roll_result();
                 }).catch((err) => {
-                    this.notification('error', '异常', err.toString());
+                    alert(JSON.stringify(err))
                 })
             }
         },
