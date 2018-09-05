@@ -146,7 +146,7 @@ app = new Vue({
             if(isPc()){
                 this.init_scatter();
             }else{
-               this.init_tokenpocket();
+               // this.init_tokenpocket();
             }
             var new_deposit = this.eosValue;//prompt("充值多少EOS？");
 
@@ -541,7 +541,7 @@ app = new Vue({
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
                 alert("account1="+this.account)
-                client.transfer(this.account, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+                client.transfer("eosio.token", "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
                     play_se("se_startrolling");
                 this.running = true;
