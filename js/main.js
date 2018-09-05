@@ -10,6 +10,7 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
+        address:"",
         user_eos_balance: "0",
         last_bet: null,
         bet_input: "1.0000",
@@ -155,12 +156,7 @@ app = new Vue({
                 if (isPc()) {
                     this.deposit(new_deposit);
                 } else {
-                    if (this.tpConnected) {
-                        this.tpDeposit(new_deposit);
-                    } else {
-                        this.notification('succeeded', '请下载TokenPocket或打开');
-                    }
-
+                    this.moreDeposit(new_deposit);
                 }
             }else{
                 this.notification('succeeded', '请输入EOS数额');
@@ -172,7 +168,7 @@ app = new Vue({
                 this.init_scatter();
             }else
             {
-                this.init_tokenpocket();
+                // this.init_tokenpocket();
             }
             var new_withdraw =this.eosValue;// prompt("提现多少EOS？");
             // Check new withdraw
@@ -362,6 +358,21 @@ app = new Vue({
                 this.notification('error', '购买失败', err.toString());
             })
         },
+        moreDeposit:function(amount){
+            amount = new Number(amount).toFixed(4);
+            client.transfer("eosio.token", "happyeosslot", amount + " EOS", "buy")
+                .then((data) => {
+                alert("buy" + JSON.stringify(data))
+                if (data.result) {
+                this.getMoreAccountAndBalance();
+                // this.notification('success','购买股份成功',amount);
+            } else {
+                this.notification('error', '购买股份失败',"");
+            }
+        }).catch((err)=>{
+                this.notification('error', '购买失败', err.toString());
+        })
+        },
         withdraw: function (amount) {
             play_se("se_click");
             amount = new Number(parseInt(amount)).toFixed(4);
@@ -382,29 +393,31 @@ app = new Vue({
                         alert(err.toString());
                     });
             }else{
-               //tokenpocket
-                tp.pushEosAction({
+                alert("卖股份")
+                client.pushEosAction({
                     actions: [
                         {
                             account: 'happyeosslot',//合约
                             name: 'sell',//方法
                             authorization: [
                                 {
-                                    actor: this.tpAccount.name,
+                                    actor: this.account,
                                     permission: 'active'
                                 }],
                             data: {
-                                account: this.tpAccount.name,
+                                account: this.account,
                                 hpy:  amount + " HPY"
                             },
-                            address: this.tpAccount.address
+                            // address: this.address
                         }
                     ]
                 }).then(() => {
-                    this.getEosBalance();
+                    alert("success!")
+                    this.getMoreAccountAndBalance();
                     play_se("se_withdraw");
                 this.notification('succeeded', '完成出售HPY交易');
             }).catch((err) => {
+                    alert(JSON.stringify(err))
                     this.notification('error', '出售HPY失败', err.toString());
             });
             }
@@ -537,8 +550,7 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-               // amount = amount.toFixed(4)
-                alert("account1="+this.account +" :"+amount)
+                amount = new Number(amount).toFixed(4);
                 client.transfer("eosio.token", "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
                     play_se("se_startrolling");
