@@ -117,9 +117,8 @@ app = new Vue({
         },
         get_current_eop_more: async function(){
           var  happyeosslot_balance = await  client.getAccount("happyeosslot").then((data) => {
-                alert("222");
-                alert(JSON.stringify(data))
-                alert(data.core_liquid_balance.split(' ', 1)[0])
+                // alert(JSON.stringify(data))
+                // alert(data.core_liquid_balance.split(' ', 1)[0])
                 return data.core_liquid_balance.split(' ', 1)[0];
             });
             var happyeosslot_true_balance =
@@ -130,10 +129,10 @@ app = new Vue({
                 limit: 10,
                 table: 'market'
             })
-            alert(JSON.stringify(happyeosslot_true_balance))
-            alert(JSON.stringify(happyeosslot_true_balance.rows[0].supply))
+            // alert(JSON.stringify(happyeosslot_true_balance))
+            // alert(JSON.stringify(happyeosslot_true_balance.rows[0].supply))
             var nums= happyeosslot_true_balance.rows[0].supply.split(' ')
-            alert(nums[0])
+            // alert(nums[0])
             happyeosslot_true_balance = happyeosslot_true_balance.rows[0].deposit.balance.split(' ', 1)[0];
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             var num = nums[0];
@@ -280,6 +279,55 @@ app = new Vue({
                 }
             }
             }).catch((err) => {
+                alert(err)
+            })
+        },
+        more_get_roll_result:function(){
+            tp.getTableRows({
+                json: "true",
+                code: "happyeosslot",
+                scope: this.tpAccount,
+                limit: 10,
+                table: 'result'
+            }).then((data) => {
+                alert("moregetrollresult")
+                alert(JSON.stringify(data));
+                var result = data.data.rows[0].roll_number;
+            this.bet_result = result;
+
+            var rate_100 = 25;
+            var rate_50 = new Array(11, 24);
+            var rate_20 = new Array(6, 16, 21);
+            var rate_10 = new Array(1, 10, 26);
+            var rate_5 = new Array(3, 13, 18, 22);
+            var rate_2 = new Array(2, 8, 17, 28);
+            var rate_0_1 = new Array(5, 9, 12, 14, 19);
+            var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
+
+            if (this.running) {
+                var random = Math.random();
+                // console.log(random);
+                if (result >= 10000) {
+                    this.stop_at(rate_100);
+                } else if (result >= 5000) {
+                    this.stop_at(rate_50[Math.floor(random) * 2]);
+                } else if (result >= 2000) {
+                    this.stop_at(rate_20[Math.floor(random * 3)]);
+                } else if (result >= 1000) {
+                    this.stop_at(rate_10[Math.floor(random * 3)]);
+                } else if (result >= 500) {
+                    this.stop_at(rate_5[Math.floor(random * 4)]);
+                } else if (result >= 200) {
+                    this.stop_at(rate_2[Math.floor(random * 4)]);
+                } else if (result >= 10) {
+                    this.stop_at(rate_0_1[Math.floor(random * 5)]);
+                } else if (result >= 1) {
+                    this.stop_at(rate_0_0_1[Math.floor(random * 6)]);
+                } else {
+                    this.result_timer = setTimeout(this.more_get_roll_result, 100); //循环调用
+                }
+            }
+        }).catch((err) => {
                 alert(err)
             })
         },
@@ -470,7 +518,7 @@ app = new Vue({
                 this.init_scatter();
             }else
             {
-                this.init_tokenpocket();
+                // this.init_tokenpocket();
             }
 
             var amount = this.bet_input;
@@ -492,21 +540,13 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-                tp.eosTokenTransfer({
-                    from: this.tpAccount.name,
-                    to: 'happyeosslot',
-                    amount: amount,
-                    tokenName: 'EOS',
-                    precision: 4,
-                    contract: 'eosio.token',
-                    memo: 'bet'+ this.createHexRandom(),
-                    address:this.tpAccount.address
-                }).then(() => {
+                client.transfer(this.account.name, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+                    .then(() => {
                     play_se("se_startrolling");
                 this.running = true;
                 this.last_bet = amount;
                 this.roll_loop();
-                this.tpGetRollResult();
+                this.more_get_roll_result();
                 }).catch((err) => {
                     this.notification('error', '异常', err.toString());
                 })
