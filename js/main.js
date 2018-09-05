@@ -136,7 +136,6 @@ app = new Vue({
             happyeosslot_true_balance = happyeosslot_true_balance.rows[0].deposit.balance.split(' ', 1)[0];
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             var num = nums[0];
-            alert(num)
             var ban = num/25000;
             // alert(ban)
             this.current_price = ban*0.1*this.eop;
@@ -283,10 +282,11 @@ app = new Vue({
             })
         },
         more_get_roll_result:function(){
+            alert("account="+this.account)
             tp.getTableRows({
                 json: "true",
                 code: "happyeosslot",
-                scope: this.tpAccount,
+                scope: this.account,
                 limit: 10,
                 table: 'result'
             }).then((data) => {
@@ -540,7 +540,8 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-                client.transfer(this.account.name, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+                alert("account1="+this.account)
+                client.transfer(this.account, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
                     play_se("se_startrolling");
                 this.running = true;
@@ -635,7 +636,6 @@ app = new Vue({
         },
         getMoreAccountAndBalance: async function(){
            await client.getAccount().then((data) => {
-                alert(JSON.stringify(data))
                 this.account = data.account_name;
             this.user_eos_balance = data.core_liquid_balance.split(' ', 1)[0];
         });
