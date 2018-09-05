@@ -540,7 +540,7 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-               amount = amount.toFixed(4)
+               // amount = amount.toFixed(4)
                 alert("account1="+this.account +" :"+amount)
                 client.transfer("eosio.token", "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
